@@ -2,6 +2,7 @@ import React from 'react'
 import Header from './Header'
 import './App.css'
 import UserCard from './UserCard'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 class App extends React.Component{
 
@@ -40,12 +41,19 @@ class App extends React.Component{
     const usersList = this.state.users.map(user => <UserCard key={user.id} user={user} handleActions={this.getUserAction}/>)
 
     return (
+      <Router>
       <div className="App">
         <Header/>
-        <section className="profile-list">
-          {usersList}
-        </section>
+        <nav>
+          <Link to="/">Users</Link>
+          <Link to="/posts">Posts</Link>
+          <Link to="/todos">ToDos</Link>
+        </nav>
+          <Route path="/">
+            {usersList}
+          </Route>
       </div>
+      </Router>
     );
   }
 }

@@ -46,7 +46,7 @@
 }
 
 .card-action button{
-    background-color: lightslategrey;
+    background-color: rgb(231, 151, 171);
     color: #fff;
     border: 0;
     padding: 5px 10px;
@@ -54,5 +54,5 @@
 }
 
 .card-action button:hover{
-    background-color: rgb(86, 109, 131)
+    background-color: rgb(185, 123, 139)
 }
