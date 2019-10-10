@@ -17,8 +17,8 @@ function profileCards(props){
             </div>
             </div>
             <div className="card-action">
-                <button>Posts</button>
-                <button>Todo</button>
+                <button onClick={()=>{props.handleActions(props.user.id, 'posts')}}>Posts</button>
+                <button onClick={()=>{props.handleActions(props.user.id, 'todos')}}>Todo</button>
             </div>
         </div>
     )
