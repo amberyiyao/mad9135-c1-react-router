@@ -1,0 +1,43 @@
+.UserCard{
+    width: 90%;
+    height: 5rem;
+    /* overflow: hidden; */
+    display: flex;
+    margin: 0 auto;
+    padding: 1rem 0;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+}
+
+.card-infor{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.card-avatar{
+    height: 100%;
+}
+
+.card-avatar img{
+    height: 100%;
+}
+
+.card-body{
+    margin-left: 1rem;
+}
+
+.card-action{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.card-action button{
+    background-color: lightslategrey;
+    color: #fff;
+    border: 0;
+    padding: 5px 10px;
+}
