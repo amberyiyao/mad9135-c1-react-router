@@ -14,7 +14,6 @@ function profileCards(props){
                     {props.user.name}<br/>
                     <span className="user-email">{props.user.email}</span>
                 </p>
-                <p className="user-website">{props.user.website}</p>
             </div>
             </div>
             <div className="card-action">

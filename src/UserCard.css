@@ -16,6 +16,16 @@
     height: 100%;
 }
 
+.user-name{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.user-email{
+    font-size: 1rem;
+    font-weight: 100;
+}
+
 .card-avatar{
     height: 100%;
 }
@@ -40,4 +50,9 @@
     color: #fff;
     border: 0;
     padding: 5px 10px;
+    cursor: pointer;
+}
+
+.card-action button:hover{
+    background-color: rgb(86, 109, 131)
 }
