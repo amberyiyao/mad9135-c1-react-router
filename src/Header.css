@@ -1,0 +1,10 @@
+.App-header{
+    height: 4rem;
+    background-color: lightslategrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    border-bottom: 10px solid rgb(125, 158, 190);
+}
