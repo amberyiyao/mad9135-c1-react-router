@@ -4,9 +4,10 @@ import './UserCard.css'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 function userCards(props){
+    const postUrl = `/user/${props.user.id}/posts`
+    const todoUrl = `/user/${props.user.id}/todos`
 
     return(
-        <Router>
         <div className="UserCard">
             <div className="card-infor">
             <div className="card-avatar">
@@ -20,11 +21,10 @@ function userCards(props){
             </div>
             </div>
             <div className="card-action">
-                <button onClick={()=>{props.handleActions(props.user.id, 'posts')}}>Posts</button>
-                <button onClick={()=>{props.handleActions(props.user.id, 'todos')}}>Todo</button>
+                <Link to={postUrl} onClick={()=>{props.handleActions(props.user, 'posts')}}>Posts</Link>
+                <Link to={todoUrl} onClick={()=>{props.handleActions(props.user, 'todos')}}>Todo</Link>
             </div>
         </div>
-        </Router>
     )
 }
 

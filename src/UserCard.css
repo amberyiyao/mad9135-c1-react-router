@@ -45,14 +45,15 @@
     height: 100%;
 }
 
-.card-action button{
+.card-action a{
     background-color: rgb(231, 151, 171);
     color: #fff;
     border: 0;
     padding: 5px 10px;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.card-action button:hover{
+.card-action a:hover{
     background-color: rgb(185, 123, 139)
 }

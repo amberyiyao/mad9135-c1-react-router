@@ -29,18 +29,22 @@ class App extends React.Component{
     .then(todos => this.setState({todos}))
   }
 
-  getUserAction=(id, action)=>{
-    fetch( `https://jsonplaceholder.typicode.com/users/${id}/${action}`)
+  getUserAction=(user, action)=>{
+    fetch( `https://jsonplaceholder.typicode.com/users/${user.id}/${action}`)
     .then(response => response.json())
     .then(infor => {
-      const newInfor = infor.filter(item => item.userId === id)
+      const newInfor = infor.filter(item => item.userId === user.id)
       if(action === 'posts'){
-        this.setState({posts: newInfor, header: "Posts"})
+        this.setState({posts: newInfor, header: `${user.name} Posts`})
       } else {
-        this.setState({todos: newInfor, header: "Todos"})
+        this.setState({todos: newInfor, header: `${user.name} Todos`})
       } 
       console.log(newInfor)
     })
+  }
+
+  updateHeader(text){
+    this.setState({header:text})
   }
 
   componentDidMount(){
@@ -57,11 +61,26 @@ class App extends React.Component{
       <div className="App">
         <Header header={this.state.header}/>
         <nav>
-          <Link to="/users" onClick={()=> this.setState({header:"Users"})}>Users</Link>
-          <Link to="/posts" onClick={()=> this.setState({header:"Posts"})}>Posts</Link>
-          <Link to="/todos" onClick={()=> this.setState({header:"Todos"})}>ToDos</Link>
+          <Link to="/users" onClick={()=> {
+            this.updateHeader("Users")
+            this.getUsers()
+            }}>Users</Link>
+          <Link to="/posts" onClick={()=> {
+            this.updateHeader("Posts")
+            this.getUsers()
+          }}>Posts</Link>
+          <Link to="/todos" onClick={()=> {
+            this.updateHeader("Todos")
+            this.getUsers()
+          }}>ToDos</Link>
         </nav>
         <Switch>
+          <Route path="/user/:id/posts">
+            {postsList}
+          </Route>
+          <Route path="/user/:id/todos">
+            {todosList}
+          </Route>
           <Route path="/posts">
             {postsList}
           </Route>
