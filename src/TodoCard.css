@@ -1,0 +1,35 @@
+.todoCard{
+    height: 7rem;
+    display: flex;
+    margin: 0 auto;
+    width: 90%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.212);
+
+}
+
+.todoCard img{
+    width: 3rem;
+    padding: 0.5rem;
+    padding-left: 0;
+}
+
+.todoInfor{
+    width: calc(100% - 4rem);
+    margin: auto 0
+}
+
+.todoInfor p{
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-clamp:2;
+    margin: 0;
+    margin-left: 5%;
+    
+}
+
+.todoTitle{
+    font-size: 1.2rem;
+    font-weight: 700;
+    white-space: nowrap;
+}

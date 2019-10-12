@@ -1,13 +1,16 @@
 import React from 'react';
 import Avatar from './smile-regular.svg'
 import './UserCard.css'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
-function profileCards(props){
+function userCards(props){
+
     return(
+        <Router>
         <div className="UserCard">
             <div className="card-infor">
             <div className="card-avatar">
-                <img src={Avatar} alt=""/>
+                <img src={Avatar} alt="user icon"/>
             </div>
             <div className="card-body">
                 <p className="user-name">
@@ -21,7 +24,8 @@ function profileCards(props){
                 <button onClick={()=>{props.handleActions(props.user.id, 'todos')}}>Todo</button>
             </div>
         </div>
+        </Router>
     )
 }
 
-export default profileCards
+export default userCards
