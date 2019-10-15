@@ -5,6 +5,7 @@ import UserCard from './UserCard'
 import PostCard from './PostsCard'
 import TodoCard from './TodoCard'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 class App extends React.Component{
 
@@ -74,6 +75,7 @@ class App extends React.Component{
             this.getUsers()
           }}>ToDos</Link>
         </nav>
+        <i></i>
         <Switch>
           <Route path="/user/:id/posts">
             {postsList}

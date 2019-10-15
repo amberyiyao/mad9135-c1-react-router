@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from './smile-regular.svg'
 import './UserCard.css'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function userCards(props){
     const postUrl = `/user/${props.user.id}/posts`
