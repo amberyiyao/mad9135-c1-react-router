@@ -6,6 +6,7 @@ import PostCard from './PostsCard'
 import TodoCard from './TodoCard'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { CSSTransitionGroup } from 'react-transition-group'
+import loading from './loading.svg'
 
 class App extends React.Component{
 
@@ -50,6 +51,15 @@ class App extends React.Component{
 
   componentDidMount(){
     this.getUsers()
+    console.log('ss')
+  }
+
+  componentWillUpdate(){
+    let loading = document.getElementById('loading');
+    loading.classList.remove('hide')
+    setTimeout(()=>{
+      loading.classList.add('hide')
+    },800)
   }
 
   render(){
@@ -75,7 +85,9 @@ class App extends React.Component{
             this.getUsers()
           }}>ToDos</Link>
         </nav>
-        <i></i>
+        <div id="loading" className="hide">
+          <img src={loading} className="loading" />
+        </div>
         <Switch>
           <Route path="/user/:id/posts">
             {postsList}
