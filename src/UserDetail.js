@@ -1,17 +1,15 @@
 import React from 'react';
 import Avatar from './smile-regular.svg'
-// import './UserCard.css'
 
 function userDetail(props){
     return(
-        <div>
+        <div className="userDetail">
             <img src={Avatar}/>
-            <p>name</p>
-            <p>phone</p>
-            <p>Email</p>
-            <p>City</p>
-            <p>Website</p>
-            <p>Company</p>
+            <p><b>Name:</b> {props.user.name}</p>
+            <p><b>City:</b> {props.user.address.city}</p>
+            <p><b>Phone:</b> {props.user.phone}</p>
+            <p><b>Email:</b> {props.user.email}</p>
+            <p><b>Website:</b> {props.user.website}</p>
         </div>
     )
 }

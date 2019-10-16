@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 function userCards(props){
     const postUrl = `/user/${props.user.id}/posts`
     const todoUrl = `/user/${props.user.id}/todos`
+    const userUrl = `/user/${props.user.id}`
 
     return(
         <div className="UserCard">
@@ -14,10 +15,13 @@ function userCards(props){
                 <img src={Avatar} alt="user icon"/>
             </div>
             <div className="card-body">
-                <p className="user-name">
+                <Link className="user-name" to={userUrl} onClick={()=>{
+                    props.getCurrentUser(props.user)
+                    props.changeHeader(props.user.name)
+                    }}>
                     {props.user.name}<br/>
                     <span className="user-email">{props.user.email}</span>
-                </p>
+                </Link>
             </div>
             </div>
             <div className="card-action">

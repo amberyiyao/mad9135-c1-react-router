@@ -4,35 +4,46 @@ import './App.css'
 import UserCard from './UserCard'
 import PostCard from './PostsCard'
 import TodoCard from './TodoCard'
+import Loading from './Loading'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import { CSSTransitionGroup } from 'react-transition-group'
-import loading from './loading.svg'
+import UserDetail from './UserDetail'
 
 class App extends React.Component{
 
   state = {
-    users: [],
+    users:[],
     posts:[],
     todos:[],
-    header: "Users"
+    currentUser:{},
+    header: "Users",
+    loading: true,
+    userPage: true
   }
 
-  getUsers(){
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
-    .then(users => this.setState({users}))
+  async getUsers(type){
+    this.setState({loading: true})
 
-    fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(response => response.json())
-    .then(posts => this.setState({posts}))
+    if(type === 'users'){
+      await fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users => this.setState({users}))
+    } else if(type === 'posts'){
+      await fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(posts => this.setState({posts}))
+    } else {
+      await fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(todos => this.setState({todos}))
+    }
 
-    fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => response.json())
-    .then(todos => this.setState({todos}))
+    this.setState({loading: false})
   }
 
-  getUserAction=(user, action)=>{
-    fetch( `https://jsonplaceholder.typicode.com/users/${user.id}/${action}`)
+   getUserAction= async (user, action)=>{
+    this.setState({loading: true})
+
+    await fetch( `https://jsonplaceholder.typicode.com/users/${user.id}/${action}`)
     .then(response => response.json())
     .then(infor => {
       const newInfor = infor.filter(item => item.userId === user.id)
@@ -41,73 +52,94 @@ class App extends React.Component{
       } else {
         this.setState({todos: newInfor, header: `${user.name} Todos`})
       } 
-      console.log(newInfor)
     })
+
+    this.setState({loading: false})
   }
 
-  updateHeader(text){
+  getCurrentUser=(user)=>{
+    const currentUser = this.state.users.filter(item => item.id === user.id)
+    this.setState({currentUser: currentUser[0]})
+    this.setState({userPage:true})
+  }
+
+  updateHeader = (text)=>{
     this.setState({header:text})
   }
 
   componentDidMount(){
-    this.getUsers()
-    console.log('ss')
-  }
-
-  componentWillUpdate(){
-    let loading = document.getElementById('loading');
-    loading.classList.remove('hide')
-    setTimeout(()=>{
-      loading.classList.add('hide')
-    },800)
+    this.getUsers('users')
   }
 
   render(){
-    const usersList = this.state.users.map(user => <UserCard key={user.id} user={user} handleActions={this.getUserAction}/>)
+    const usersList = this.state.users.map(user => <UserCard key={user.id} user={user} handleActions={this.getUserAction} getCurrentUser={this.getCurrentUser} changeHeader={this.updateHeader}/>)
     const postsList = this.state.posts.map(post => <PostCard key={post.id} post={post} />)
     const todosList = this.state.todos.map(todo => <TodoCard key={todo.id} todo={todo} />)
    
     return (
       <Router>
-      <div className="App">
-        <Header header={this.state.header}/>
-        <nav>
-          <Link to="/users" onClick={()=> {
-            this.updateHeader("Users")
-            this.getUsers()
-            }}>Users</Link>
-          <Link to="/posts" onClick={()=> {
-            this.updateHeader("Posts")
-            this.getUsers()
-          }}>Posts</Link>
-          <Link to="/todos" onClick={()=> {
-            this.updateHeader("Todos")
-            this.getUsers()
-          }}>ToDos</Link>
-        </nav>
-        <div id="loading" className="hide">
-          <img src={loading} className="loading" />
+        <div className="App">
+          <Header header={this.state.header}/>
+            {
+              this.state.userPage
+              ?(<nav>
+                <Link to="/users" onClick={()=> {
+                  this.updateHeader("Users")
+                  this.getUsers('users')
+                  this.setState({userPage:false})
+                  }}>Users</Link>
+                <Link to="/posts" onClick={()=> {
+                  this.updateHeader(`${this.state.header} Posts`)
+                  this.getUserAction(this.state.currentUser, 'posts')
+                  this.getUsers('posts')
+                  this.setState({userPage:false})
+                }}>Posts</Link>
+                <Link to="/todos" onClick={()=> {
+                  this.updateHeader(`${this.state.header} Todos`)
+                  this.getUserAction(this.state.currentUser, 'todos')
+                  this.getUsers('todos')
+                  this.setState({userPage:false})
+                }}>ToDos</Link>
+                </nav>
+              )
+              :(
+                <nav>
+                <Link to="/users" onClick={()=> {
+                  this.updateHeader("Users")
+                  this.getUsers('users')
+                  }}>Users</Link>
+              <Link to="/posts" onClick={()=> {
+                  this.updateHeader("Posts")
+                  this.getUsers('posts')
+                }}>Posts</Link>
+                <Link to="/todos" onClick={()=> {
+                  this.updateHeader("Todos")
+                  this.getUsers('todos')
+                }}>ToDos</Link>
+                </nav>
+              )}
+          {
+            this.state.loading
+            ? (<Loading/>)
+            : (<Switch>
+              <Route path={["/user/:id/posts", "/posts"]}>
+                {postsList}
+              </Route>
+              <Route path={["/user/:id/todos", "/todos"]}>
+                {todosList}
+              </Route>
+              <Route path="/user/:id">
+                <UserDetail user={this.state.currentUser}/>
+              </Route>
+              <Route path="/">
+                {usersList}
+              </Route>
+              </Switch>
+              ) 
+            }
         </div>
-        <Switch>
-          <Route path="/user/:id/posts">
-            {postsList}
-          </Route>
-          <Route path="/user/:id/todos">
-            {todosList}
-          </Route>
-          <Route path="/posts">
-            {postsList}
-          </Route>
-          <Route path="/todos">
-            {todosList}
-          </Route>
-          <Route path="/">
-            {usersList}
-          </Route>
-        </Switch>
-      </div>
-      </Router>
-    );
+        </Router>
+      );
   }
 }
 
