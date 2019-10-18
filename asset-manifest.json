@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/mad9135-c1-react-router/static/css/main.87fa0a5f.chunk.css",
-    "main.js": "/mad9135-c1-react-router/static/js/main.ccfe6ee2.chunk.js",
-    "main.js.map": "/mad9135-c1-react-router/static/js/main.ccfe6ee2.chunk.js.map",
+    "main.css": "/mad9135-c1-react-router/static/css/main.99c57e22.chunk.css",
+    "main.js": "/mad9135-c1-react-router/static/js/main.93eb2eda.chunk.js",
+    "main.js.map": "/mad9135-c1-react-router/static/js/main.93eb2eda.chunk.js.map",
     "runtime-main.js": "/mad9135-c1-react-router/static/js/runtime-main.23e57686.js",
     "runtime-main.js.map": "/mad9135-c1-react-router/static/js/runtime-main.23e57686.js.map",
-    "static/js/2.720d5542.chunk.js": "/mad9135-c1-react-router/static/js/2.720d5542.chunk.js",
-    "static/js/2.720d5542.chunk.js.map": "/mad9135-c1-react-router/static/js/2.720d5542.chunk.js.map",
+    "static/js/2.3f75709a.chunk.js": "/mad9135-c1-react-router/static/js/2.3f75709a.chunk.js",
+    "static/js/2.3f75709a.chunk.js.map": "/mad9135-c1-react-router/static/js/2.3f75709a.chunk.js.map",
     "index.html": "/mad9135-c1-react-router/index.html",
-    "precache-manifest.098297c77019e816cb964c8771182bd6.js": "/mad9135-c1-react-router/precache-manifest.098297c77019e816cb964c8771182bd6.js",
+    "precache-manifest.f8a0c157ccd4e889671f92fef29c9dbc.js": "/mad9135-c1-react-router/precache-manifest.f8a0c157ccd4e889671f92fef29c9dbc.js",
     "service-worker.js": "/mad9135-c1-react-router/service-worker.js",
-    "static/css/main.87fa0a5f.chunk.css.map": "/mad9135-c1-react-router/static/css/main.87fa0a5f.chunk.css.map",
+    "static/css/main.99c57e22.chunk.css.map": "/mad9135-c1-react-router/static/css/main.99c57e22.chunk.css.map",
     "static/media/comments-regular.svg": "/mad9135-c1-react-router/static/media/comments-regular.1f301d23.svg",
     "static/media/list-alt-regular.svg": "/mad9135-c1-react-router/static/media/list-alt-regular.1f44e83c.svg",
     "static/media/loading.svg": "/mad9135-c1-react-router/static/media/loading.47b17d22.svg",
@@ -18,8 +18,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.23e57686.js",
-    "static/js/2.720d5542.chunk.js",
-    "static/css/main.87fa0a5f.chunk.css",
-    "static/js/main.ccfe6ee2.chunk.js"
+    "static/js/2.3f75709a.chunk.js",
+    "static/css/main.99c57e22.chunk.css",
+    "static/js/main.93eb2eda.chunk.js"
   ]
 }
