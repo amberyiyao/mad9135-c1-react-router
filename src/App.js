@@ -42,17 +42,16 @@ class App extends React.Component{
 
    getUserAction= async (user, action)=>{
     this.setState({loading: true})
+    if(action === 'posts'){
+       console.log(this.state.posts)
 
-    await fetch( `https://jsonplaceholder.typicode.com/users/${user.id}/${action}`)
-    .then(response => response.json())
-    .then(infor => {
-      const newInfor = infor.filter(item => item.userId === user.id)
-      if(action === 'posts'){
-        this.setState({posts: newInfor, header: `${user.name} Posts`})
-      } else {
-        this.setState({todos: newInfor, header: `${user.name} Todos`})
-      } 
-    })
+      const newInfor = this.state.posts.filter(item => item.userId === user.id)    
+      this.setState({posts: newInfor, header: `${user.name} Posts`})
+
+    } else {
+      const newInfor = this.state.todos.filter(item => item.userId === user.id)    
+      this.setState({todos: newInfor, header: `${user.name} Todos`})
+    } 
 
     this.setState({loading: false})
   }
@@ -60,7 +59,7 @@ class App extends React.Component{
   getCurrentUser=(user)=>{
     const currentUser = this.state.users.filter(item => item.id === user.id)
     this.setState({currentUser: currentUser[0]})
-    this.setState({userPage:true})
+    this.setState({userPage: true})
   }
 
   updateHeader = (text)=>{
@@ -69,6 +68,8 @@ class App extends React.Component{
 
   componentDidMount(){
     this.getUsers('users')
+    this.getUsers('posts')
+    this.getUsers('todos')
   }
 
   render(){
@@ -77,7 +78,7 @@ class App extends React.Component{
     const todosList = this.state.todos.map(todo => <TodoCard key={todo.id} todo={todo} />)
    
     return (
-      <Router>
+      <Router basename="/mad9135-c1-react-router">
         <div className="App">
           <Header header={this.state.header}/>
             {
@@ -129,7 +130,7 @@ class App extends React.Component{
                 {todosList}
               </Route>
               <Route path="/user/:id">
-                <UserDetail user={this.state.currentUser}/>
+                <UserDetail user={this.state.currentUser} handleActions={this.getUserAction}/>
               </Route>
               <Route path="/">
                 {usersList}
