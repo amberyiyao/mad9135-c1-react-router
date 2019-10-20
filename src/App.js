@@ -36,7 +36,7 @@ class App extends React.Component{
       .then(response => response.json())
       .then(todos => this.setState({todos}))
     }
-    setTimeout(()=>this.setState({loading: false}),1000) //Just for showing laoding animation for longer time
+    setTimeout(()=>this.setState({loading: false}),1000) //Just for showing laoding animation for longer time for marking, or you will not see it. I will not use like this in real project.
   }
 
    getUserAction= async (user, action)=>{
@@ -50,7 +50,7 @@ class App extends React.Component{
       this.setState({todos: newInfor, header: `${user.name} Todos`})
     } 
 
-    setTimeout(()=>this.setState({loading: false}),1000)//Just for showing laoding animation for longer time
+    setTimeout(()=>this.setState({loading: false}),1000)//Just for showing laoding animation for longer time for marking, or you will not see it. I will not use like this in real project.
   }
 
   getCurrentUser=(user)=>{
