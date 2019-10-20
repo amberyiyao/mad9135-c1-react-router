@@ -60,7 +60,7 @@ class App extends React.Component{
     this.setState({currentUser: currentUser[0]})
     this.setState({userPage: true})
 
-    setTimeout(()=>this.setState({loading: false}),1000)//Just for showing laoding animation for longer time
+    setTimeout(()=>this.setState({loading: false}),1000)//Just for showing laoding animation for longer time for marking, or you will not see it. I will not use like this in real project.
   }
 
   updateHeader = (text)=>{
