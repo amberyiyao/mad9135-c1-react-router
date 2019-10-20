@@ -9,7 +9,7 @@ function userCards(props){
     const userUrl = `/user/${props.user.id}`
 
     return(
-        <div className="UserCard">
+          <div className="UserCard">
             <div className="card-infor">
             <div className="card-avatar">
                 <img src={Avatar} alt="user icon"/>
@@ -28,7 +28,7 @@ function userCards(props){
                 <Link to={postUrl} onClick={()=>{props.handleActions(props.user, 'posts')}}>Posts</Link>
                 <Link to={todoUrl} onClick={()=>{props.handleActions(props.user, 'todos')}}>Todo</Link>
             </div>
-        </div>
+            </div>
     )
 }
 

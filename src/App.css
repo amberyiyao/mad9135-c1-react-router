@@ -23,3 +23,23 @@ nav a{
     justify-content: center;
 }
 
+.fade-appear {
+    opacity: 0.01;
+  }
+  .fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: all 200ms;
+  }
+  
+  /* As elements are added to the DOM */
+  .fade-enter {
+    opacity: 0.01;
+    transform: scale(1, 0);
+    overflow: hidden;
+  }
+  .fade-enter.fade-enter-active {
+    opacity: 1;
+    transform: scale(1, 1);
+    transition: opacity 250ms ease-in, transform 195ms ease-out;
+  }
+  
