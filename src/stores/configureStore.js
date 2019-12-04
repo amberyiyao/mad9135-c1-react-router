@@ -1,17 +1,17 @@
 import { createStore } from 'redux'
 
-let defultState = {
+let defaultState = {
     users:[],
     posts:[],
     todos:[],
-    currentUser:{},
-    header: "Users",
-    loading: true,
-    userPage: true
+    currentUser:{}
 }
 
-function amount(state = defaultStatus, action){
-    //if(action.type === '')
+function amount(state = defaultState, action){
+    console.log(action.type)
+    if(action.type){
+        return {...state, ...action.data}
+    }
     return state
 }
 

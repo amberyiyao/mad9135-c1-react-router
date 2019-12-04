@@ -5,6 +5,7 @@ import './UserDetail.css'
 
 
 function userDetail(props){
+    console.log(props.user)
     const postUrl = `/user/${props.user.id}/posts`
     const todoUrl = `/user/${props.user.id}/todos`
     return(

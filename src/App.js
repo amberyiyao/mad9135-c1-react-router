@@ -7,47 +7,54 @@ import TodoCard from './components/TodoCard'
 import Loading from './components/Loading'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import UserDetail from './components/UserDetail'
+import store from './stores/configureStore'
+import * as actions from './actions/actions'
 
 class App extends React.Component{
 
   state = {
-    users:[],
-    posts:[],
-    todos:[],
     currentUser:{},
     header: "Users",
     loading: true,
-    userPage: true
+    userPage: false
   }
 
-  async getUsers(type){
+  async getData(type){
     this.setState({loading: true})
 
     if(type === 'users'){
       await fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(users => this.setState({users}))
+      .then(users => store.dispatch(actions.changeUserData(users)))
     } else if(type === 'posts'){
       await fetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
-      .then(posts => this.setState({posts}))
+      .then(posts => store.dispatch(actions.changePostData(posts)))
     } else {
       await fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
-      .then(todos => this.setState({todos}))
+      .then(todos => store.dispatch(actions.changeTodosData(todos)))
     }
     setTimeout(()=>this.setState({loading: false}),1000) //Just for showing laoding animation for longer time for marking, or you will not see it. I will not use like this in real project.
   }
 
-   getUserAction= async (user, action)=>{
+  getUserAction= async (user, action)=>{
     this.setState({loading: true})
     
     if(action === 'posts'){
-       const newInfor = this.state.posts.filter(item => item.userId === user.id)    
-      this.setState({posts: newInfor, header: `${user.name} Posts`})
+      console.log(store.getState().posts)
+      const newInfor = store.getState().posts.filter(item => item.userId === user.id) 
+      console.log(newInfor)
+
+      this.updateHeader(`${user.name} Posts`)
+      store.dispatch(actions.changePostData(newInfor))
+
+      console.log(store.getState().posts)
     } else {
-      const newInfor = this.state.todos.filter(item => item.userId === user.id)    
-      this.setState({todos: newInfor, header: `${user.name} Todos`})
+      const newInfor = store.getState().todos.filter(item => item.userId === user.id) 
+      this.updateHeader(`${user.name} Todos`)
+      store.dispatch(actions.changeTodosData(newInfor))
+      
     } 
 
     setTimeout(()=>this.setState({loading: false}),1000)//Just for showing laoding animation for longer time for marking, or you will not see it. I will not use like this in real project.
@@ -56,7 +63,7 @@ class App extends React.Component{
   getCurrentUser=(user)=>{
     this.setState({loading: true})
 
-    const currentUser = this.state.users.filter(item => item.id === user.id)
+    const currentUser = store.getState().users.filter(item => item.id === user.id)
     this.setState({currentUser: currentUser[0]})
     this.setState({userPage: true})
 
@@ -64,19 +71,35 @@ class App extends React.Component{
   }
 
   updateHeader = (text)=>{
-    this.setState({header:text})
+    this.setState({header: text})
   }
 
   componentDidMount(){
-    this.getUsers('users')
-    this.getUsers('posts')
-    this.getUsers('todos')
+    this.getData('users')
+    this.getData('posts')
+    this.getData('todos')
+    store.subscribe(()=> this.setState({}))
   }
 
   render(){
-    const usersList = this.state.users.map(user => <UserCard key={user.id} user={user} handleActions={this.getUserAction} getCurrentUser={this.getCurrentUser} changeHeader={this.updateHeader}/>)
-    const postsList = this.state.posts.map(post => <PostCard key={post.id} post={post} />)
-    const todosList = this.state.todos.map(todo => <TodoCard key={todo.id} todo={todo} />)
+
+    if(!store.getState().users){
+      this.getData('users')
+      console.log('no user')
+    }
+    if(!store.getState().posts){
+      this.getData('posts')
+      console.log('no post')
+    }
+    if(!store.getState().todos){
+      this.getData('todos')
+      console.log('no todo')
+    }
+
+    console.log(store.getState().posts)
+    const usersList = store.getState().users.map(user => <UserCard key={user.id} user={user} handleActions={this.getUserAction} getCurrentUser={this.getCurrentUser} changeHeader={this.updateHeader}/>)
+    const postsList = store.getState().posts.map(post => <PostCard key={post.id} post={post} />)
+    const todosList = store.getState().todos.map(todo => <TodoCard key={todo.id} todo={todo} />)
    
     return (
       <Router basename="/mad9135-c1-react-router">
@@ -87,19 +110,17 @@ class App extends React.Component{
               ?(<nav>
                 <Link to="/users" onClick={()=> {
                   this.updateHeader("Users")
-                  this.getUsers('users')
+                  this.getData('users')
                   this.setState({userPage:false})
                   }}>Users</Link>
                 <Link to="/posts" onClick={()=> {
                   this.updateHeader(`${this.state.header} Posts`)
                   this.getUserAction(this.state.currentUser, 'posts')
-                  this.getUsers('posts')
                   this.setState({userPage:false})
                 }}>Posts</Link>
                 <Link to="/todos" onClick={()=> {
                   this.updateHeader(`${this.state.header} Todos`)
                   this.getUserAction(this.state.currentUser, 'todos')
-                  this.getUsers('todos')
                   this.setState({userPage:false})
                 }}>ToDos</Link>
                 </nav>
@@ -108,15 +129,15 @@ class App extends React.Component{
                 <nav>
                 <Link to="/users" onClick={()=> {
                   this.updateHeader("Users")
-                  this.getUsers('users')
+                  this.getData('users')
                   }}>Users</Link>
                 <Link to="/posts" onClick={()=> {
                   this.updateHeader("Posts")
-                  this.getUsers('posts')
+                  this.getData('posts')
                 }}>Posts</Link>
                 <Link to="/todos" onClick={()=> {
                   this.updateHeader("Todos")
-                  this.getUsers('todos')
+                  this.getData('todos')
                 }}>ToDos</Link>
                 </nav>
               )}
