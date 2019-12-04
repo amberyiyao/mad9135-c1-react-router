@@ -8,7 +8,7 @@ let defaultState = {
 }
 
 function amount(state = defaultState, action){
-    console.log(action.type)
+    console.log(action.type, action.data)
     if(action.type){
         return {...state, ...action.data}
     }

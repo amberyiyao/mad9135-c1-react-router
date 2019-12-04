@@ -42,14 +42,9 @@ class App extends React.Component{
     this.setState({loading: true})
     
     if(action === 'posts'){
-      console.log(store.getState().posts)
       const newInfor = store.getState().posts.filter(item => item.userId === user.id) 
-      console.log(newInfor)
-
       this.updateHeader(`${user.name} Posts`)
       store.dispatch(actions.changePostData(newInfor))
-
-      console.log(store.getState().posts)
     } else {
       const newInfor = store.getState().todos.filter(item => item.userId === user.id) 
       this.updateHeader(`${user.name} Todos`)
@@ -85,18 +80,14 @@ class App extends React.Component{
 
     if(!store.getState().users){
       this.getData('users')
-      console.log('no user')
     }
     if(!store.getState().posts){
       this.getData('posts')
-      console.log('no post')
     }
     if(!store.getState().todos){
       this.getData('todos')
-      console.log('no todo')
     }
 
-    console.log(store.getState().posts)
     const usersList = store.getState().users.map(user => <UserCard key={user.id} user={user} handleActions={this.getUserAction} getCurrentUser={this.getCurrentUser} changeHeader={this.updateHeader}/>)
     const postsList = store.getState().posts.map(post => <PostCard key={post.id} post={post} />)
     const todosList = store.getState().todos.map(todo => <TodoCard key={todo.id} todo={todo} />)
