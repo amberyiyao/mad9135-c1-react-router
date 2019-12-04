@@ -1,5 +1,5 @@
 import React from 'react';
-import img from './list-alt-regular.svg';
+import img from '../images/list-alt-regular.svg';
 import './TodoCard.css'
 
 function todoCard(props){

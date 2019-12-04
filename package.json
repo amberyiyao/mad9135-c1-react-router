@@ -2,7 +2,7 @@
   "name": "mad9135-c1-react-router",
   "version": "0.1.0",
   "private": true,
-  "homepage":"https://zhou0160.github.io/mad9135-c1-react-router/",
+  "homepage": "https://zhou0160.github.io/mad9135-c1-react-router/",
   "dependencies": {
     "gh-pages": "^2.1.1",
     "react": "^16.10.2",
@@ -33,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "redux": "^4.0.4"
   }
 }

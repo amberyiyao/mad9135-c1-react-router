@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from './smile-regular.svg'
+import Avatar from '../images/smile-regular.svg'
 import { Link } from 'react-router-dom'
 import './UserDetail.css'
 

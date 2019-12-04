@@ -1,5 +1,5 @@
 import React from 'react';
-import img from './comments-regular.svg';
+import img from '../images/comments-regular.svg';
 import './PostCard.css'
 
 function postCard(props){

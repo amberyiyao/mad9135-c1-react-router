@@ -1,12 +1,12 @@
 import React from 'react'
-import Header from './Header'
+import Header from './components/Header'
 import './App.css'
-import UserCard from './UserCard'
-import PostCard from './PostsCard'
-import TodoCard from './TodoCard'
-import Loading from './Loading'
+import UserCard from './components/UserCard'
+import PostCard from './components/PostsCard'
+import TodoCard from './components/TodoCard'
+import Loading from './components/Loading'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import UserDetail from './UserDetail'
+import UserDetail from './components/UserDetail'
 
 class App extends React.Component{
 
